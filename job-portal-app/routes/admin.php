@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\admin\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\admin\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\admin\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\admin\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\admin\Auth\NewPasswordController;
-use App\Http\Controllers\admin\Auth\PasswordController;
-use App\Http\Controllers\admin\Auth\PasswordResetLinkController;
-use App\Http\Controllers\admin\Auth\RegisteredUserController;
-use App\Http\Controllers\admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\admin\Auth\PasswordController;
+use App\Http\Controllers\admin\Auth\NewPasswordController;
+use App\Http\Controllers\admin\Auth\VerifyEmailController;
+use App\Http\Controllers\admin\Auth\RegisteredUserController;
+use App\Http\Controllers\admin\Auth\PasswordResetLinkController;
+use App\Http\Controllers\admin\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\admin\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\admin\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\admin\Auth\EmailVerificationNotificationController;
 
 Route::group(['middleware'=>['guest:admin'],
     'prefix'=>'admin',
@@ -42,9 +43,7 @@ Route::group(['middleware'=>['auth:admin'],
     'as'=>'admin.'
 ],function () {
 
-    Route::get('dashboard',function(){
-        return view('admin.dashboard.index');
-    })->name('dashboard');
+    Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
