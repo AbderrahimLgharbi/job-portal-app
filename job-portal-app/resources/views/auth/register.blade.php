@@ -134,6 +134,10 @@
                     <input class="form-check-input {{ $errors->has('account_type') ? 'is-invalid' : ''}}" type="radio" name="account_type" id="typeCompany" value="company">
                     <label class="form-check-label" for="typeCompany">Company</label>
                 </div>
+
+                @if ($errors->has('account_type'))
+                    <div class="invalid-feedback d-block">{{ $errors->first('account_type') }}</div>
+                @endif
                 
                 </div>
             <div class="form-group">
