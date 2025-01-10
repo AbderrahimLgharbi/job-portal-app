@@ -30,10 +30,16 @@
               class="burger-icon-mid"></span><span class="burger-icon-bottom"></span></div>
         </div>
         <div class="header-right">
+          @if (!auth()->user())
           <div class="block-signin">
             <!-- <a class="text-link-bd-btom hover-up" href="page-register.html">Register</a> -->
             <a class="btn btn-default btn-shadow ml-40 hover-up" href="{{ route('login') }}">Sign in</a>
           </div>
+          @elseif (auth()->user()->role === 'company')
+            <a class="btn btn-default btn-shadow ml-40 hover-up" href="{{ route('company.dashboard') }}">company</a>
+          @elseif (auth()->user()->role === 'candidate')
+          <a class="btn btn-default btn-shadow ml-40 hover-up" href="{{ route('candidate.dashboard') }}">candidate</a>
+          @endif
         </div>
       </div>
     </div>

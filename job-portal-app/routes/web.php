@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\frontend\CompanyProfileController;
+use App\Http\Controllers\frontend\CompanyDashboardController;
+use App\Http\Controllers\Frontend\CandidateDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +34,7 @@ Route::group([
     'prefix' =>'candidate',
     'as'=>'candidate.',
 ],function(){
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [CandidateDashboardController::class,'index'])->name('dashboard');
 });
 
 Route::group([
@@ -41,7 +42,8 @@ Route::group([
     'prefix'=>'company',
     'as'=>'company.',
 ],function(){
-    Route::get('/dashboard', function () {
-    return view('frontend.company-dashboard.dashboard');
-})->name('dashboard');});
+    Route::get('/dashboard',[CompanyDashboardController::class,'index'])->name('dashboard');
+    
+    Route::get('/profile',[CompanyProfileController::class,'index'])->name('profile');
+});
 

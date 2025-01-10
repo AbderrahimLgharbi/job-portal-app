@@ -54,7 +54,7 @@ class RegisteredUserController extends Controller
             return redirect(RouteServiceProvider::COMPANY_PATH);
         }
 
-        return redirect()->route('register');
+        return redirect('/');
 
     }
 }

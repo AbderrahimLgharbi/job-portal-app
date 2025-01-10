@@ -35,7 +35,7 @@
 
 
 
-@yield('contents')
+  @yield('contents')
 
   </main>
 
