@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+use App\Models\Company;
+
 class ProfileUpdateRequest extends FormRequest
 {
     /**
@@ -15,9 +17,22 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+        $rules= [
+            'logo' => ['image','max:1500'],
+            'banner' => ['image','max:1500'],
+            'name' => ['required','string','max:100'],
+            'bio' => ['required'],
+            'vision' => ['required'],
         ];
+
+        $company = Company::where('user_id',auth()->user()->id)->first();
+
+        if(empty($company) || !$company?->logo){
+            $rules['logo'][] = 'required';
+        }
+        if(empty($company) || !$company?->banner){
+            $rules['banner'][] = 'required';
+        }
+        return $rules;
     }
 }
