@@ -50,6 +50,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
+                            <x-image-preview :height="200" :width="200" :source="$companyInfo?->logo" />
                             <div class="form-group">
                                 <label class="font-sm color-text-mutted mb-10">Logo *</label>
                                 <input class="form-control {{ $errors->has('logo') ? 'is-invalid' : '' }}" type="file" name="logo">
@@ -58,18 +59,18 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <x-image-preview :height="200" :width="400" :source="$companyInfo?->banner" />
                             <div class="form-group">
                                 <label class="font-sm color-text-mutted mb-10">Banner *</label>
                                 <input class="form-control {{ $errors->has('banner') ? 'is-invalid' : '' }}" type="file" name="banner">
-                    <x-input-error :messages="$errors->get('banner')" class="mt-2" />
-
+                                <x-input-error :messages="$errors->get('banner')" class="mt-2" />
                             </div>
                         </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="font-sm color-text-mutted mb-10">Company name *</label>
-                        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" value="{{ $companyInfo->name }}">
+                        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" value="{{ $companyInfo?->name }}">
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 
                     </div>

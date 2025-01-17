@@ -17,6 +17,7 @@
   <link href="{{ asset('frontend/assets/css/all.min.css') }}" rel="stylesheet">
   <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
   <title>joblist - Job Portal HTML Template </title>
+  @notifyCss
 </head>
 
 <body>
@@ -31,8 +32,8 @@
 
 @include('frontend.layouts.header')
 
-  <main class="main">
-
+<main class="main">
+  
 
 
   @yield('contents')
@@ -60,8 +61,8 @@
       </div>
     </div>
   </section> --}}
-
-@include('frontend.layouts.footer')
+  
+  @include('frontend.layouts.footer')
 
   <script src="{{ asset('frontend/assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
@@ -77,7 +78,12 @@
   <script src="{{ asset('frontend/assets/js/plugins/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/plugins/Font-Awesome.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/plugins/counterup.js') }}"></script>
+  
+  <x-notify::notify />
+  @notifyJs
+  
   <script src="{{ asset('frontend/assets/js/main.js?v=4.1') }}"></script>
+  
 </body>
 
 </html>
