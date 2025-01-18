@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
-  
+use App\Http\Requests\Frontend\CompanyFoundingInfoUpdateRequest;
+use Illuminate\Http\RedirectResponse;
+
 class CompanyProfileController extends Controller
 {
 
@@ -17,7 +19,7 @@ class CompanyProfileController extends Controller
         return view('frontend.company-dashboard.profile.index',compact('companyInfo'));
     }
 
-    function updateCompanyInfo(ProfileUpdateRequest $request){
+    function updateCompanyInfo(ProfileUpdateRequest $request) : RedirectResponse{
 
         $logopath = $this->uploadFile($request,'logo');
         $bannerpath = $this->uploadFile($request,'banner');
@@ -39,5 +41,31 @@ class CompanyProfileController extends Controller
 
         return redirect()->back();
         // dd($data);
+    }
+
+    function foundingCompanyInfo(CompanyFoundingInfoUpdateRequest $request) :RedirectResponse {
+        // dd($request->all());
+
+
+        Company::updateOrCreate(
+            ['user_id' => auth()->user()->id],
+            [
+                "industry_type_id"=>$request->industry_type_id,
+                "organization_type_id"=>$request->organization_type_id,
+                "team_size_id"=>$request->team_size_id,
+                "establishment_date"=>$request->establishment_date,
+                "website"=>$request->website,
+                "email"=>$request->email,
+                "phone"=>$request->phone,
+                "country"=>$request->country,
+                "state"=>$request->state,
+                "city"=>$request->city,
+                "address"=>$request->address,
+                "map_link"=>$request->map_link
+            ]
+        );
+
+        notify()->success('data succesful updated ⚡️','success');
+        return redirect()->back();
     }
 }

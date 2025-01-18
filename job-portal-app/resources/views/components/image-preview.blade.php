@@ -1,4 +1,4 @@
-@props(['width','height','source']) 
+@props(['width','height','source',]) 
 
 @if ($source)
 <div>
