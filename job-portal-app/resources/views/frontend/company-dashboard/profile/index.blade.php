@@ -226,19 +226,21 @@
 
             </div>
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                <form action="" method="POST">
+                <form action="{{ route('company.profile.account-info') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-sm color-text-mutted mb-10">Name</label>
-                                <input class="form-control" type="text" >
+                                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" value="{{ auth()->user()->name }}"/>
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-sm color-text-mutted mb-10">Email</label>
-                                <input class="form-control" type="email" >
+                                <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" value="{{ auth()->user()->email }}"/>
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                         </div>
                     </div>
@@ -248,18 +250,24 @@
                             <button class="btn btn-default btn-shadow">Save</button>
                         </div>
                     </div>
+                </form>
 
+                <form action="{{ route('company.profile.password') }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-sm color-text-mutted mb-10">Password</label>
-                                <input class="form-control" type="password" >
+                                <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password">
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-sm color-text-mutted mb-10">confirm Password</label>
-                                <input class="form-control" type="password" >
+                                <input class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" type="password" name="password_confirmation">
+                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
                         </div>
                     </div>

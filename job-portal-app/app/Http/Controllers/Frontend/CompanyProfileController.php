@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\Frontend\CompanyFoundingInfoUpdateRequest;
 use Illuminate\Http\RedirectResponse;
+use Auth;
+use Illuminate\Validation\Rules;
+
 
 class CompanyProfileController extends Controller
 {
@@ -66,6 +69,30 @@ class CompanyProfileController extends Controller
         );
 
         notify()->success('data succesful updated ⚡️','success');
+        return redirect()->back();
+    }
+
+    function accountCompanyInfo(Request $request) : RedirectResponse{
+        $validatedData = $request->validate([
+            'name'=>['required','string','max:50'],
+            'email'=>['required','email'],
+        ]);
+
+        Auth::user()->update($validatedData);
+        notify()->success('data succesful updated ⚡️','success');
+
+        return redirect()->back();
+    }
+
+    function passwordCompanyaccount(Request $request): RedirectResponse{
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        Auth::user()->update(['password'=>bcrypt($request->password)]);
+
+        notify()->success('data succesful updated ⚡️','success');
+
         return redirect()->back();
     }
 }
