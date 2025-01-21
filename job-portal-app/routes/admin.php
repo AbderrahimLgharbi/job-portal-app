@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\IndustryTypeController;
 use App\Http\Controllers\admin\Auth\PasswordController;
 use App\Http\Controllers\admin\Auth\NewPasswordController;
 use App\Http\Controllers\admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\OrganizationTypeController;
 use App\Http\Controllers\admin\Auth\RegisteredUserController;
 use App\Http\Controllers\admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\admin\Auth\ConfirmablePasswordController;
@@ -43,26 +45,12 @@ Route::group(['middleware'=>['auth:admin'],
     'as'=>'admin.'
 ],function () {
 
-    Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-
-    Route::get('verify-email', EmailVerificationPromptController::class)
-                ->name('verification.notice');
-
-    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
-                ->middleware(['signed', 'throttle:6,1'])
-                ->name('verification.verify');
-
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware('throttle:6,1')
-                ->name('verification.send');
-
-    Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-                ->name('password.confirm');
-
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
-
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+                // Admin DAsh
+    Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+    Route::resource('industry-types',IndustryTypeController::class);
+    Route::resource('organization-types',OrganizationTypeController::class);
 });
